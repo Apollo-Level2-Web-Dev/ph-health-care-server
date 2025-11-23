@@ -1,11 +1,11 @@
-import prisma from "../../../shared/prisma"
-import { IAuthUser } from "../../interfaces/common"
-import { v4 as uuidv4 } from 'uuid';
-import { IPaginationOptions } from "../../interfaces/pagination";
-import { paginationHelper } from "../../../helpers/paginationHelper";
 import { AppointmentStatus, PaymentStatus, Prisma, UserRole } from "@prisma/client";
-import ApiError from "../../errors/ApiError";
 import httpStatus from "http-status";
+import { v4 as uuidv4 } from 'uuid';
+import { paginationHelper } from "../../../helpers/paginationHelper";
+import prisma from "../../../shared/prisma";
+import ApiError from "../../errors/ApiError";
+import { IAuthUser } from "../../interfaces/common";
+import { IPaginationOptions } from "../../interfaces/pagination";
 
 
 const createAppointment = async (user: IAuthUser, payload: any) => {
@@ -120,7 +120,15 @@ const getMyAppointment = async (user: IAuthUser, filters: any, options: IPaginat
             ? { [options.sortBy]: options.sortOrder }
             : { createdAt: 'desc' },
         include: user?.role === UserRole.PATIENT
-            ? { doctor: true, schedule: true } : { patient: { include: { medicalReport: true, patientHealthData: true } }, schedule: true }
+            ? { doctor: true, schedule: true, review: true, prescription: true }
+            : {
+                patient: {
+                    include: { medicalReport: true, patientHealthData: true },
+                },
+                schedule: true,
+                prescription: true,
+                review: true,
+            }
     });
 
     const total = await prisma.appointment.count({

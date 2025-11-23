@@ -1,17 +1,17 @@
-import { AppointmentStatus, PaymentStatus, Prescription, Prisma } from "@prisma/client"
-import prisma from "../../../shared/prisma"
-import { IAuthUser } from "../../interfaces/common"
-import ApiError from "../../errors/ApiError";
+import { AppointmentStatus, Prescription, Prisma } from "@prisma/client";
 import httpStatus from "http-status";
-import { IPaginationOptions } from "../../interfaces/pagination";
 import { paginationHelper } from "../../../helpers/paginationHelper";
+import prisma from "../../../shared/prisma";
+import ApiError from "../../errors/ApiError";
+import { IAuthUser } from "../../interfaces/common";
+import { IPaginationOptions } from "../../interfaces/pagination";
 
 const insertIntoDB = async (user: IAuthUser, payload: Partial<Prescription>) => {
     const appointmentData = await prisma.appointment.findUniqueOrThrow({
         where: {
             id: payload.appointmentId,
             status: AppointmentStatus.COMPLETED,
-            paymentStatus: PaymentStatus.PAID
+            // paymentStatus: PaymentStatus.PAID
         },
         include: {
             doctor: true
