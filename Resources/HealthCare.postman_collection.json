@@ -1,0 +1,1636 @@
+{
+	"info": {
+		"_postman_id": "05a3e54e-5882-40f8-bd28-486752398450",
+		"name": "HealthCare",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31641809",
+		"_collection_link": "https://warped-crater-802760.postman.co/workspace/Next_Level_Instructor~97293662-b199-4ba3-89c7-edbe0627707c/collection/31641809-05a3e54e-5882-40f8-bd28-486752398450?action=share&source=collection_link&creator=31641809"
+	},
+	"item": [
+		{
+			"name": "User Managment",
+			"item": [
+				{
+					"name": "Create Doctor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTc1NDIxOTAwMSwiZXhwIjoxNzU0ODIzODAxfQ.74joePxA5igf6Z_E_o0Ol27kiMEPfEviJ1xZ298UQX0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/Photos/Next_Level/Level_2_Logo-01.webp"
+								},
+								{
+									"key": "data",
+									"value": "{\n    \"password\": \"123456\",\n    \"doctor\": {\n        \"email\": \"doctor5@gmail.com\",\n        \"name\": \"Dr. Shafia\",\n        \"contactNumber\": \"+1234567890\",\n        \"address\": \"123 Medical Street, Cityville\",\n        \"registrationNumber\": \"12345\",\n        \"experience\": 5,\n        \"gender\": \"MALE\",\n        \"appointmentFee\": 100,\n        \"qualification\": \"MD, PhD\",\n        \"currentWorkingPlace\": \"City Hospital\",\n        \"designation\": \"Senior Consultant\"\n    }\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user/create-doctor",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"create-doctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/fahimahammedfiroz/Downloads/programminghero_logo.jpeg"
+								},
+								{
+									"key": "data",
+									"value": "{\n    \"password\" : \"123456\",\n    \"admin\" : {\n        \"name\" : \"Mezba\",\n        \"email\" : \"mezba12@ph.com\",\n        \"contactNumber\": \"0123456789\"\n    }\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user/create-admin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"create-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/fahimahammedfiroz/Downloads/programminghero_logo.jpeg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"password\": \"123456\",\n  \"patient\": {\n    \"email\": \"patient111@gmail.com\",\n    \"name\": \"Md. Fahim\",\n    \"contactNumber\": \"01111111111\",\n    \"address\": \"Dhaka, BD\"\n  }\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user/create-patient",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"create-patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"PENDING\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/0ceb274f-e663-40eb-83db-9df66d19bd0d/status",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"0ceb274f-e663-40eb-83db-9df66d19bd0d",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyNGM1ZTU2My1kOWI4LTQ1ZTItYmQyZC1hYTMyNmI4NDUwMzQiLCJyb2xlIjoiQURNSU4iLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTcxMTQ3NTc5NCwiZXhwIjoxNzExNTYyMTk0fQ.4bRK7vjy8NlGBoRqL2WBH06ODcW_w6rxz3vmhM9OOyM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/user/?status=ACTIVE",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "fahimahammed.cse@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "fahim",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ACTIVE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"me"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "fahimahammed.cse@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "fahim",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update my Profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/fahimahammedfiroz/Downloads/programminghero_logo.jpeg"
+								},
+								{
+									"key": "data",
+									"value": "{\n    \"name\": \"Md. Fahim\",\n    \"contactNumber\": \"0111111111\",\n    \"address\": \"Khulna\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/update-my-profile",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"update-my-profile"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "fahimahammed.cse@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "fahim",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"super@admin.com\",\n    \"password\": \"superadmin\"\n}\n\n\n// {\n//     \"email\": \"doctor23@gmail.com\",\n//     \"password\": \"123456\"\n// }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/auth/refresh-token",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"123456\",\n    \"newPassword\": \"1234567\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/change-password",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"fahimahammed.cse@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/forgot-password",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJiMmQ5NDFkLTVkODItNDQxMy1hZjJjLTgzMGI0MTMzYzcxNiIsImlhdCI6MTcwMzQzMTY2MywiZXhwIjoxNzAzNDMyMjYzfQ.53OQi5NK6WuFWrd9ezGUB3MRVIKkkSwtvqNDNF236GU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"2b2d941d-5d82-4413-af2c-830b4133c716\",\n    \"newPassword\": \"hello\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/reset-password",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "Fillter Doctor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/doctor?name=Dr. Fahim&page=1&limit=10&specialties=Medicine",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "user@example.com",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Dr. Fahim"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "specialties",
+									"value": "Medicine"
+								},
+								{
+									"key": "searchTerm",
+									"value": "senior",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AI Driven Suggestion",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"symptoms\": \"chest pain, shortness of breath, and irregular heartbeat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/suggestion",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"suggestion"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "user@example.com",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "senior",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Doctor by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/3369f9af-9d24-44ea-befc-f5b8066a806e",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"3369f9af-9d24-44ea-befc-f5b8066a806e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Doctor",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTc1NDIxOTAwMSwiZXhwIjoxNzU0ODIzODAxfQ.74joePxA5igf6Z_E_o0Ol27kiMEPfEviJ1xZ298UQX0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"name\": \"Dr. Cameron Williamson\",\n    // // \"profilePhoto\": \"doctor_profile1.jpg\",\n    // \"contactNumber\": \"+1234567899\",\n    // \"address\": \"123/A Medical Street, Cityville\",\n    // \"registrationNumber\": \"1234560\",\n    // \"experience\": 6,\n    // \"gender\": \"MALE\",\n    // \"apointmentFee\": 200,\n    // \"qualification\": \"MBBS (BCS)\",\n    // \"currentWorkingPlace\": \"City Medical College Hospital\",\n    // \"designation\": \"Senior Consultant |\"\n    \"specialties\": [\n        {\n            \"specialtiesId\": \"b7c2447c-4eb7-45c5-b7b9-d4e80a797540\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/990cd5cf-28bd-4018-a119-50b70befede6",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"990cd5cf-28bd-4018-a119-50b70befede6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete doctor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dr. John\",\n    \"profilePhoto\": \"doctor_profile1.jpg\",\n    \"contactNumber\": \"+1234567899\",\n    \"address\": \"123/A Medical Street, Cityville\",\n    \"registrationNumber\": \"1234560\",\n    \"experience\": 6,\n    \"gender\": \"MALE\",\n    \"apointmentFee\": 200,\n    \"qualification\": \"MBBS (BCS)\",\n    \"currentWorkingPlace\": \"City Medical College Hospital\",\n    \"designation\": \"Senior Consultant |\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/082e08dc-4764-4b32-b481-c3025235db75",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"082e08dc-4764-4b32-b481-c3025235db75"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dr. John\",\n    \"profilePhoto\": \"doctor_profile1.jpg\",\n    \"contactNumber\": \"+1234567899\",\n    \"address\": \"123/A Medical Street, Cityville\",\n    \"registrationNumber\": \"1234560\",\n    \"experience\": 6,\n    \"gender\": \"MALE\",\n    \"apointmentFee\": 200,\n    \"qualification\": \"MBBS (BCS)\",\n    \"currentWorkingPlace\": \"City Medical College Hospital\",\n    \"designation\": \"Senior Consultant |\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/soft/4d8d94b3-8985-4586-9f25-6b78479b8492",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"soft",
+								"4d8d94b3-8985-4586-9f25-6b78479b8492"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "get All Admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/admin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Single Admin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/admin/85827a01-dc9e-4bd8-854a-cdc40c202aa7",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"admin",
+								"85827a01-dc9e-4bd8-854a-cdc40c202aa7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update SIngle Admin",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ph Admin Pro\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/admin/9a4680e5-71fe-425b-9323-491192264499",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"admin",
+								"9a4680e5-71fe-425b-9323-491192264499"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/admin/8b118215-668b-4d79-9e6b-bfa4485f54ae",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"admin",
+								"8b118215-668b-4d79-9e6b-bfa4485f54ae"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/admin/soft/8b118215-668b-4d79-9e6b-bfa4485f54ae",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"admin",
+								"soft",
+								"8b118215-668b-4d79-9e6b-bfa4485f54ae"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "get All Patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/patient",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patient"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "mdmohon@gmail.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Single patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/patient/87f85211-5468-4d4a-8343-087751240c55",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patient",
+								"87f85211-5468-4d4a-8343-087751240c55"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Patient",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"medicalReport\": {\r\n        \"reportName\": \"Past surgery 2\",\r\n        \"reportLink\": \"reportlink2\"\r\n    }\r\n}\r\n\r\n\r\n\r\n// {\r\n//         \"email\": \"mdmohon@gmail.com\",\r\n//         \"name\": \"Md. Mohon 1\",\r\n//         \"profilePhoto\": null,\r\n//         \"contactNumber\": null,\r\n//         \"address\": null,\r\n//         \"createdAt\": \"2023-12-25T05:59:02.145Z\",\r\n//         \"updatedAt\": \"2023-12-25T14:11:30.372Z\",\r\n//         \"medicalReport\": {\r\n//             \"id\": \"5c8516e7-2036-429d-aea3-c44159dfcb51\",\r\n//             \"patientId\": \"87f85211-5468-4d4a-8343-087751240c55\",\r\n//             \"reportName\": \"Past surgery\",\r\n//             \"reportLink\": \"reportlink\",\r\n//             \"createdAt\": \"2023-12-25T14:55:40.584Z\",\r\n//             \"updatedAt\": \"2023-12-25T14:57:24.092Z\"\r\n//         },\r\n//         \"patientHelthData\": {\r\n//             \"id\": \"f62e395f-bbe5-4efe-8fbf-2c6fdef609ee\",\r\n//             \"patientId\": \"87f85211-5468-4d4a-8343-087751240c55\",\r\n//             \"dateOfBirth\": \"2023-12-25T05:59:02.145Z\",\r\n//             \"gender\": \"MALE\",\r\n//             \"bloodGroup\": \"B_POSITIVE\",\r\n//             \"hasAllergies\": false,\r\n//             \"hasDiabetes\": false,\r\n//             \"height\": null,\r\n//             \"weight\": \"50 Kg\",\r\n//             \"smokingStatus\": false,\r\n//             \"dietaryPreferences\": null,\r\n//             \"pregnancyStatus\": false,\r\n//             \"mentalHealthHistory\": null,\r\n//             \"immunizationStatus\": false,\r\n//             \"hasPastSurgeries\": false,\r\n//             \"recentAnxiety\": false,\r\n//             \"recentDepression\": false,\r\n//             \"maritalStatus\": \"UNMARRIED\",\r\n//             \"createdAt\": \"2023-12-25T14:10:18.426Z\",\r\n//             \"updatedAt\": \"2023-12-25T14:15:15.546Z\"\r\n//         }\r\n//     }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/patient/87f85211-5468-4d4a-8343-087751240c55",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patient",
+								"87f85211-5468-4d4a-8343-087751240c55"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Patient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/patient/87f85211-5468-4d4a-8343-087751240c55",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patient",
+								"87f85211-5468-4d4a-8343-087751240c55"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/patient/soft/87f85211-5468-4d4a-8343-087751240c55",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patient",
+								"soft",
+								"87f85211-5468-4d4a-8343-087751240c55"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Specialties",
+			"item": [
+				{
+					"name": "create speciality",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/Photos/Next_Level/Level_2_Logo-01-jpg.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Medicine\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/specialties",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete speciality",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Anesthesiologists\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/specialties/71e84272-2b32-47b5-a006-4a797e6bc545",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialties",
+								"71e84272-2b32-47b5-a006-4a797e6bc545"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specialities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/specialties",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialties"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schedule",
+			"item": [
+				{
+					"name": "Create Schedule",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\": \"2024-02-20\",\r\n    \"endDate\": \"2024-03-22\",\r\n    \"startTime\": \"10:00\",\r\n    \"endTime\": \"18:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schedule",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Schedules - availavle - for doctor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmMjBmMjhjMi02YTQxLTQxZDQtOTE1Mi01OWViMzMwOTY3NzQiLCJyb2xlIjoiRE9DVE9SIiwiZW1haWwiOiJkb2N0b3IxQGV4YW1wbGUuY29tIiwiaWF0IjoxNzA4OTIyNTY3LCJleHAiOjE3MTMyNDI1Njd9.s_LKR28V6o4O5F0eY4dlebi-H6WdhQbzahhrSwpxL0I",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/schedule?startDate=2024-01-25T00:00:00.000Z&endDate=2024-01-25T23:59:59.000Z",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"schedule"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-25T00:00:00.000Z"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-25T23:59:59.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Single Schedule - NOT USED",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{DOCTOR_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/schedule/7608eef7-881d-431f-9244-eab4ebabd9e8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schedule",
+								"7608eef7-881d-431f-9244-eab4ebabd9e8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Schedule",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schedule/589220db-50cd-43a6-bc64-825ac4ac5fdb",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schedule",
+								"589220db-50cd-43a6-bc64-825ac4ac5fdb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor Schedules",
+			"item": [
+				{
+					"name": "create Doctor Schedule",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmMjBmMjhjMi02YTQxLTQxZDQtOTE1Mi01OWViMzMwOTY3NzQiLCJyb2xlIjoiRE9DVE9SIiwiZW1haWwiOiJkb2N0b3IxQGV4YW1wbGUuY29tIiwiaWF0IjoxNzA4ODg0NjU2LCJleHAiOjE3MTMyMDQ2NTZ9.bkeFcd-Z_1ha8NKoyGs0QNWh0aTQCm4Dii6QZLq4u7E",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scheduleIds\": [\r\n        \"23a2f066-9d30-4ea8-b48b-4d218b1279af\",\r\n        \"0627507d-f4dd-4867-a671-955afd1a01b9\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/doctor-schedule",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"doctor-schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all Doctor Schedule",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "isBooked",
+								"value": "false",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/doctor-schedule?doctorId=bfecddcd-6671-4a51-9ea3-496bc500a4df&startDate=2024-04-17T06:08:16.274Z",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor-schedule"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "Dr. John Doe",
+									"disabled": true
+								},
+								{
+									"key": "isBooked",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "doctorId",
+									"value": "bfecddcd-6671-4a51-9ea3-496bc500a4df"
+								},
+								{
+									"key": "startDate",
+									"value": "2024-04-17T06:08:16.274Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my schedule - doctor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{DOCTOR_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/doctor-schedule/my-schedules",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"doctor-schedule",
+								"my-schedules"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "Dr. John Doe",
+									"disabled": true
+								},
+								{
+									"key": "isBooked",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "startDate",
+									"value": "2025-03-22T16:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "2025-03-22T17:30:00.000Z",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete doctor schedule",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{DOCTOR_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/doctor-schedule/917231f7-7cc5-4a7a-9d3d-3a485ba190b0",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor-schedule",
+								"917231f7-7cc5-4a7a-9d3d-3a485ba190b0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "Create Appointment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMzgwZTdlYi1jODE0LTQ0OWItOGJhMy05NDFkZWU2MWFlZGYiLCJyb2xlIjoiUEFUSUVOVCIsImVtYWlsIjoicGF0aWVudEBnbWFpbC5jb20iLCJpYXQiOjE3MTE0NzYwNjksImV4cCI6MTcxMTU2MjQ2OX0.3J1oxkFT77CCa-Cec0sowFfM_QumWb4y3ZRjZwxWeBc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"doctorId\": \"4408089c-1e0c-4c46-907c-cc54b159ada0\",\n    \"scheduleId\": \"5bb70d9a-c67e-45aa-a8c0-dd724dc40e41\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/appointment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Appointments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{DOCTOR_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/appointment/my-appointments?limit=10&page=1&sortBy=&sortOrder=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"appointment",
+								"my-appointments"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sortBy",
+									"value": ""
+								},
+								{
+									"key": "sortOrder",
+									"value": ""
+								},
+								{
+									"key": "paymentStatus",
+									"value": "PAID",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Appointment",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/appointment/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"appointment",
+								""
+							],
+							"query": [
+								{
+									"key": "patientEmail",
+									"value": "fahim11@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "doctorEmail",
+									"value": "fahimfiroz.ph@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "SCHEDULED",
+									"disabled": true
+								},
+								{
+									"key": "paymentStatus",
+									"value": "UNPAID",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change appointment status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{DOCTOR_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"INPROGRESS\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/appointment/status/ba3a55f1-49b1-42a0-a226-b1f2c60c92d3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"appointment",
+								"status",
+								"ba3a55f1-49b1-42a0-a226-b1f2c60c92d3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Init Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{PATIENT_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/payment/init/ed20fa08-dd24-4167-bef2-db10d59736b0",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"payment",
+								"init",
+								"ed20fa08-dd24-4167-bef2-db10d59736b0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate (local)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/payment/ipn?tran_id=36b020240225204433",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"payment",
+								"ipn"
+							],
+							"query": [
+								{
+									"key": "tran_id",
+									"value": "36b020240225204433"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prescriptions",
+			"item": [
+				{
+					"name": "Create Prescription",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3MGE0MmZmOS0xMDEyLTQ4ZmItYTYyOS1hNWIzNjI0MjQ0ODIiLCJyb2xlIjoiRE9DVE9SIiwiZW1haWwiOiJkb2N0b3IyM0BnbWFpbC5jb20iLCJpYXQiOjE3MDg5NzQwMzcsImV4cCI6MTcxMzI5NDAzN30.wrAGDvUpDpiNGJpMivpGo2I-dchup3PRtAJpaWOT0QA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\": \"c896125f-6572-436b-aeee-72c2b87ed21b\",\r\n    // \"followUpDate\": \"2024-01-26T04:17:11.563Z\",\r\n    \"instructions\": \"<p>test</p>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/prescription",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"prescription"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my Prescriptions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3MGE0MmZmOS0xMDEyLTQ4ZmItYTYyOS1hNWIzNjI0MjQ0ODIiLCJyb2xlIjoiRE9DVE9SIiwiZW1haWwiOiJkb2N0b3IyM0BnbWFpbC5jb20iLCJpYXQiOjE3MDg5NzQzOTUsImV4cCI6MTcxMzI5NDM5NX0.lDbrZdVRI9r3-UpyBpKKtiCFK07xTV7QYb-LG3Ra8hc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/prescription/my-prescriptions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"prescription",
+								"my-prescriptions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Create Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5NGQxNGYxOS01NTRmLTQ4NzItODE5OC1kZTc1OTY1ZTE5NGQiLCJyb2xlIjoiUEFUSUVOVCIsImVtYWlsIjoicGF0aWVudDExMUBnbWFpbC5jb20iLCJpYXQiOjE3MDg5NzU0MTMsImV4cCI6MTcxMzI5NTQxM30.xnHXJS5ThhkN6dt3Q5E6Kp7uY1TJ8o2OYy0s7bknUw8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\": \"c896125f-6572-436b-aeee-72c2b87ed21b\",\r\n    \"rating\": 4.8,\r\n    \"comment\": \"This Doctor is Good\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/review",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get All Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/review",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"review"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Meta",
+			"item": [
+				{
+					"name": "Meta Data for Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyNGM1ZTU2My1kOWI4LTQ1ZTItYmQyZC1hYTMyNmI4NDUwMzQiLCJyb2xlIjoiQURNSU4iLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTcxMTQ3MTA0NCwiZXhwIjoxNzExNTU3NDQ0fQ.vzkV9isSHmzOBQ9Ubcgck2GyMvJbcqMYRo0tFwr-550",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/metadata",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"metadata"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:5000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:5000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "ADMIN_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "DOCTOR_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "PATIENT_TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

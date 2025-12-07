@@ -1,28 +1,51 @@
 {
-  "name": "ph-health-care-starter",
+  "name": "part-1",
   "version": "1.0.0",
-  "main": "server.js",
-  "author": "shafayat",
+  "main": "index.js",
   "license": "MIT",
-  "prisma": {
-    "schema": "./prisma/schema"
-  },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts"
-  },
-  "dependencies": {
-    "@prisma/client": "^6.16.3",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.2",
-    "express": "^5.1.0",
-    "http-status": "^2.1.0"
+    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "db:generate": "prisma generate --schema=./prisma/schema",
+    "db:migrate": "prisma migrate --schema=./prisma/schema",
+    "db:push": "prisma db push --schema=./prisma/schema",
+    "db:pull": "prisma db pull --schema=./prisma/schema",
+    "db:studio": "prisma studio --schema=./prisma/schema",
+    "postinstall": "prisma generate --schema=./prisma/schema",
+    "stripe:webhook": "stripe listen --forward-to localhost:5000/webhook"
   },
   "devDependencies": {
+    "@prisma/client": "^7.0.1",
+    "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
-    "@types/node": "^24.5.0",
-    "prisma": "^6.16.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^24.0.10",
+    "@types/nodemailer": "^6.4.17",
+    "@types/pg": "^8.15.6",
+    "prisma": "^7.0.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.0.1",
+    "axios": "^1.11.0",
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "http-status": "^2.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.1",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.5",
+    "pg": "^8.16.3",
+    "stripe": "^19.1.0",
+    "uuid": "^11.1.0",
+    "zod": "^4.0.3"
   }
 }
