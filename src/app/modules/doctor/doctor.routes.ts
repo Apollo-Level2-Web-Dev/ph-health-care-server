@@ -8,7 +8,7 @@ import { DoctorValidation } from './doctor.validation';
 const router = express.Router();
 
 // AI driven doctor suggestion
-router.get('/suggestion', DoctorController.getAiSuggestion);
+router.post('/suggestion', DoctorController.getAiSuggestion);
 
 // task 3
 router.get('/', DoctorController.getAllFromDB);

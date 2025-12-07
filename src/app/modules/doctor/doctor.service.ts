@@ -315,6 +315,7 @@ type PatientInput = {
 };
 
 const getAISuggestion = async (input: PatientInput) => {
+  // Fetch all active doctors with their specialties and ratings
   const doctors = await prisma.doctor.findMany({
     where: { isDeleted: false },
     include: {
@@ -325,10 +326,42 @@ const getAISuggestion = async (input: PatientInput) => {
     },
   });
 
+  if (doctors.length === 0) {
+    return [];
+  }
+
+  // Transform doctors data to include calculated average ratings and all specialties
+  const doctorsWithRatings = doctors.map((doctor: any) => {
+    const allSpecialties = doctor.doctorSpecialties
+      .map((ds: any) => ds.specialities?.title)
+      .filter(Boolean);
+
+    return {
+      id: doctor.id,
+      name: doctor.name,
+      email: doctor.email,
+      profilePhoto: doctor.profilePhoto,
+      contactNumber: doctor.contactNumber,
+      address: doctor.address,
+      registrationNumber: doctor.registrationNumber,
+      experience: doctor.experience,
+      gender: doctor.gender,
+      appointmentFee: doctor.appointmentFee,
+      qualification: doctor.qualification,
+      currentWorkingPlace: doctor.currentWorkingPlace,
+      designation: doctor.designation,
+      averageRating: doctor.review && doctor.review.length > 0
+        ? doctor.review.reduce((sum: number, r: any) => sum + r.rating, 0) / doctor.review.length
+        : 0,
+      specialties: allSpecialties, // Array of all specialties
+      primarySpecialty: allSpecialties[0] || 'General', // For backward compatibility
+    };
+  });
+
   const systemMessage = {
     role: "system",
     content:
-      "You are a medical recommendation assistant. Based on a patient's symptoms and doctor data including specialties and reviews, suggest the top 5 most suitable doctors return the doctors in an array with the whole data object.",
+      "You are an expert medical recommendation assistant. Analyze patient symptoms and match them to the most appropriate medical specialty, then recommend suitable doctors. Be very precise in specialty matching - for example: headaches/brain issues → Neurology, chest pain/heart issues → Cardiology, kidney issues → Nephrology, etc.",
   };
 
   const userMessage = {
@@ -336,30 +369,92 @@ const getAISuggestion = async (input: PatientInput) => {
     content: `
 Patient Symptoms: ${input.symptoms}
 
-Here is the list of available doctors (JSON):
-${JSON.stringify(doctors)}
+Available Doctors (JSON):
+${JSON.stringify(doctorsWithRatings, null, 2)}
 
-Instructions:
-1. Analyze patient symptoms.
-2. Determine most relevant specialty.
-3. Pick top 5 doctors from that specialty or pick the available even if less than 5.
-4. If no doctors found, return an empty array or any other doctor.
-5. Prioritize based on highest ratings.
-6. Return an array of doctor objects ONLY in valid JSON format.
-7. Each doctor object must contain these keys: id, name, specialty, experience, averageRating, appointmentFee.
+CRITICAL INSTRUCTIONS:
+1. Carefully analyze the symptoms: "${input.symptoms}"
+2. Determine the MOST RELEVANT medical specialty for these specific symptoms
+3. Match ALL doctors whose specialties array contains the relevant specialty
+4. A doctor may have multiple specialties - check ALL of them in the "specialties" array
+5. Return ALL doctors that have a matching specialty (e.g., if 2 doctors have Neurology, return both)
+6. When returning results, include ALL specialties for each doctor, with the MOST RELEVANT specialty FIRST in the array
+   Example: If doctor has ["Nephrology", "Neurology"] and symptoms are "headache", return "specialties": ["Neurology", "Nephrology"]
+7. Prioritize by: Best specialty match > Highest rating > Most experience
+8. Return up to 10 doctors maximum (return ALL matching doctors if less than 10)
+9. Return ONLY a valid JSON array with these EXACT keys for each doctor:
+   - id, name, specialties (array with MATCHED specialty first), experience, averageRating, 
+     appointmentFee, qualification, designation, currentWorkingPlace, profilePhoto
 
-Respond ONLY with the JSON array. No extra text or explanation.
+Example format:
+[
+  {
+    "id": "doctor-id-1",
+    "name": "Dr. Name 1",
+    "specialties": ["Neurology", "Nephrology"],
+    "experience": 5,
+    "averageRating": 4.5,
+    "appointmentFee": 2000,
+    "qualification": "MBBS, MD",
+    "designation": "Consultant",
+    "currentWorkingPlace": "Hospital",
+    "profilePhoto": "url or null"
+  },
+  {
+    "id": "doctor-id-2",
+    "name": "Dr. Name 2",
+    "specialties": ["Neurology"],
+    "experience": 8,
+    "averageRating": 4.8,
+    "appointmentFee": 2500,
+    "qualification": "MBBS, MD, DM",
+    "designation": "Senior Consultant",
+    "currentWorkingPlace": "Medical Center",
+    "profilePhoto": "url or null"
+  }
+]
+
+RESPOND WITH ONLY THE JSON ARRAY - NO EXPLANATIONS, NO MARKDOWN, NO EXTRA TEXT.
 `,
   };
 
-  const response = await askOpenRouter([systemMessage, userMessage]);
-  const cleanedJson = response
-    .replace(/```(?:json)?\s*/, "") // remove ``` or ```json
-    .replace(/```$/, "") // remove ending ```
-    .trim();
+  try {
+    const response = await askOpenRouter([systemMessage, userMessage]);
 
-  const suggestedDoctors = JSON.parse(cleanedJson);
-  return suggestedDoctors;
+    // Clean the response to extract JSON
+    const cleanedJson = response
+      .replace(/```(?:json)?\s*/g, "") // remove ``` or ```json
+      .replace(/```$/g, "") // remove ending ```
+      .trim();
+
+    const suggestedDoctors = JSON.parse(cleanedJson);
+
+    // Validate that response is an array
+    if (!Array.isArray(suggestedDoctors)) {
+      console.error('AI response is not an array:', suggestedDoctors);
+      return [];
+    }
+
+    return suggestedDoctors;
+  } catch (error) {
+    console.error('Error parsing AI suggestion response:', error);
+    // Fallback: return top-rated doctors with proper format
+    return doctorsWithRatings
+      .sort((a: any, b: any) => b.averageRating - a.averageRating)
+      .slice(0, 5)
+      .map((doctor: any) => ({
+        id: doctor.id,
+        name: doctor.name,
+        specialty: doctor.primarySpecialty,
+        experience: doctor.experience,
+        averageRating: doctor.averageRating,
+        appointmentFee: doctor.appointmentFee,
+        qualification: doctor.qualification,
+        designation: doctor.designation,
+        currentWorkingPlace: doctor.currentWorkingPlace,
+        profilePhoto: doctor.profilePhoto,
+      }));
+  }
 };
 
 const getAllPublic = async (

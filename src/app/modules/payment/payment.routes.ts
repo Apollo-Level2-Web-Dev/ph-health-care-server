@@ -1,16 +1,8 @@
 import express from 'express';
-import { PaymentController } from './payment.controller';
 
 const router = express.Router();
 
-router.get(
-    '/ipn',
-    PaymentController.validatePayment
-)
-
-router.post(
-    '/init-payment/:appointmentId',
-    PaymentController.initPayment
-)
+// Webhook route is registered in app.ts before other middleware
+// This file is kept for potential future payment-related routes
 
 export const PaymentRoutes = router;

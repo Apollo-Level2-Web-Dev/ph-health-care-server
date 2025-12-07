@@ -1,10 +1,10 @@
+import { PaymentStatus, Prisma } from "@prisma/client";
 import httpStatus from "http-status";
-import prisma from "../../../shared/prisma"
-import ApiError from "../../errors/ApiError";
-import { IAuthUser } from "../../interfaces/common"
-import { IPaginationOptions } from "../../interfaces/pagination";
 import { paginationHelper } from "../../../helpers/paginationHelper";
-import { Prisma } from "@prisma/client";
+import prisma from "../../../shared/prisma";
+import ApiError from "../../errors/ApiError";
+import { IAuthUser } from "../../interfaces/common";
+import { IPaginationOptions } from "../../interfaces/pagination";
 
 const insertIntoDB = async (user: IAuthUser, payload: any) => {
     const patientData = await prisma.patient.findUniqueOrThrow({
@@ -18,6 +18,13 @@ const insertIntoDB = async (user: IAuthUser, payload: any) => {
             id: payload.appointmentId
         }
     });
+
+    if (appointmentData.paymentStatus !== PaymentStatus.PAID) {
+        throw new ApiError(
+            httpStatus.BAD_REQUEST,
+            "Payment must be completed before submitting a review"
+        );
+    }
 
     if (!(patientData.id === appointmentData.patientId)) {
         throw new ApiError(httpStatus.BAD_REQUEST, "This is not your appointment!")
@@ -93,7 +100,7 @@ const getAllFromDB = async (
         include: {
             doctor: true,
             patient: true,
-            //appointment: true,
+            appointment: true,
         },
     });
     const total = await prisma.review.count({

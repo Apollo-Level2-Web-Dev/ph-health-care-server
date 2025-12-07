@@ -31,8 +31,10 @@ model Payment {
   transactionId      String        @unique
   status             PaymentStatus @default(UNPAID)
   paymentGatewayData Json?
-  createdAt          DateTime      @default(now())
-  updatedAt          DateTime      @updatedAt
+  stripeEventId      String?       @unique // For webhook idempotency
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("payments")
 }

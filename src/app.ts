@@ -2,37 +2,39 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
+import cron from 'node-cron';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
+import { AppointmentService } from './app/modules/Appointment/appointment.service';
 import { PaymentController } from './app/modules/Payment/payment.controller';
 import router from './app/routes';
 
 const app: Application = express();
 app.use(cookieParser());
+
 app.post(
     "/webhook",
     express.raw({ type: "application/json" }),
     PaymentController.handleStripeWebhookEvent
 );
+
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
     credentials: true
 }));
 
 //parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(sanitizeInput); // ADD THIS LINE
 
 
-
-// cron.schedule('* * * * *', () => {
-//     try {
-//         AppointmentService.cancelUnpaidAppointments();
-//     }
-//     catch (err) {
-//         console.error(err);
-//     }
-// });
+cron.schedule('*/5 * * * *', () => {
+    try {
+        console.log("🔄 Running unpaid appointment cleanup at", new Date().toISOString());
+        AppointmentService.cancelUnpaidAppointments();
+    } catch (err) {
+        console.error("❌ Cron job error:", err);
+    }
+});
 
 app.get('/', (req: Request, res: Response) => {
     res.send({

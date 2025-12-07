@@ -7,6 +7,7 @@ export default {
     env: process.env.NODE_ENV,
     port: process.env.PORT,
     stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
     salt_round: process.env.SALT_ROUND,
     openRouterApiKey: process.env.OPENROUTER_API_KEY,
     jwt: {
@@ -22,19 +23,10 @@ export default {
         email: process.env.EMAIL,
         app_pass: process.env.APP_PASS
     },
-    ssl: {
-        storeId: process.env.STORE_ID,
-        storePass: process.env.STORE_PASS,
-        successUrl: process.env.SUCCESS_URL,
-        cancelUrl: process.env.CANCEL_URL,
-        failUrl: process.env.FAIL_URL,
-        sslPaymentApi: process.env.SSL_PAYMENT_API,
-        sslValidationApi: process.env.SSL_VALIDATIOIN_API
-    },
     cloudinary: {
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
         api_key: process.env.CLOUDINARY_API_KEY,
         api_secret: process.env.CLOUDINARY_API_SECRET
     }
-    
+
 }

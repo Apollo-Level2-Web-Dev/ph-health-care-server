@@ -1808,7 +1808,7 @@
                     "response": []
                 }
             ],
-            "description": "Payment processing with SSL Commerz"
+            "description": "Payment processing with Stripe - Webhook handled at POST /webhook"
         },
         {
             "name": "11. Prescription Module",

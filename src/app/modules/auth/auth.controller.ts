@@ -195,10 +195,14 @@ const forgotPassword = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const resetPassword = catchAsync(async (req: Request, res: Response) => {
-  const token = req.headers.authorization || "";
+const resetPassword = catchAsync(async (req: Request & { user?: any }, res: Response) => {
+  // Extract token from Authorization header (remove "Bearer " prefix)
+  const authHeader = req.headers.authorization;
+  console.log({ authHeader });
+  const token = authHeader ? authHeader.replace('Bearer ', '') : null;
+  const user = req.user; // Will be populated if authenticated via middleware
 
-  await AuthServices.resetPassword(token, req.body);
+  await AuthServices.resetPassword(token, req.body, user);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
